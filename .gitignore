@@ -1,0 +1,69 @@
+# ==============================================
+# 专为你的 STM32 + EIDE + FreeRTOS 项目定制
+# 作用：只上传源码，自动屏蔽所有编译产物/临时文件
+# ==============================================
+
+# 1. 系统/编辑器临时文件
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+*.code-workspace
+
+# 2. EIDE 开发环境 （屏蔽编译日志/临时文件）
+.eide/log/
+.eide/.temp/
+.eide/build/
+.eide/obj/
+.eide/bin/
+.eide/out/
+.clang-format
+*.bak
+
+# 3. Keil MDK 编译产物 （绝对不上传）
+*.uvoptx
+*.uvguix.*
+*.dep
+*.bak
+*.lnp
+*.mp
+*.htm
+*.map
+*.lst
+*.i
+*.d
+*.crf
+*.hex
+*.bin
+*.axf
+*.elf
+*.o
+*.a
+
+# 4. 编译输出目录 （核心屏蔽！）
+build/
+bin/
+obj/
+out/
+Listings/
+Objects/
+Output/
+Output Files/
+Debug/
+Release/
+*.hex
+*.bin
+
+# 5. FreeRTOS / 工程无关文件
+*.log
+*.tmp
+*.exe
+*.dll
+
+# 6. 屏蔽无用文件夹（你截图里的多余目录）
+Listings/
+Objects/
+.cmsis/
