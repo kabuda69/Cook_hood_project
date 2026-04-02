@@ -43,17 +43,17 @@ void delay_us(u32 nus)
 	u32 ticks;
 	u32 told,tnow,tcnt=0;
 	u32 reload=SysTick->LOAD;					    	 
-	ticks=nus*fac_us; 						
-	told=SysTick->VAL;        				
+	ticks=nus*fac_us; 						//需要的节拍数
+	told=SysTick->VAL;        		//刚进入时，计数器的值
 	while(1)
 	{
 		tnow=SysTick->VAL;	
 		if(tnow!=told)
 		{	    
-			if(tnow<told)tcnt+=told-tnow;	
-			else tcnt+=reload-tnow+told;	    
+			if(tnow<told)tcnt+=told-tnow;	 //SysTick是24位递减计时器
+			else tcnt+=reload-tnow+told;	   
 			told=tnow;
-			if(tcnt>=ticks)break;			
+			if(tcnt>=ticks)break;			//定时器发生了溢出，退出
 		}  
 	};										    
 } 
@@ -74,7 +74,8 @@ void delay_ms(u32 nms)
 void delay_xms(u32 nms)
 {
 	u32 i;
-	for(i=0;i<nms;i++) delay_us(1000);
+	for(i=0;i<nms;i++) 
+	delay_us(1000);
 }
 
 

@@ -46,12 +46,15 @@ virtualFolder:
         - path: ../STM32F10x_FWLib/src/stm32f10x_wwdg.c
       folders: []
     - name: BSP
-      files: []
+      files:
+        - path: ../BSP/motor.c
+        - path: ../BSP/gpiox.c
       folders: []
     - name: SYSTEM
       files:
         - path: ../SYSTEM/sys/sys.c
         - path: ../SYSTEM/delay/delay.c
+        - path: ../SYSTEM/usart/usart.c
       folders: []
     - name: FreeRTOS_Core
       files:
