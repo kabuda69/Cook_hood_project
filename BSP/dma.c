@@ -3,11 +3,10 @@
 DMA_InitTypeDef DMA_InitStructure;
 u16 DMA1_MEM_LEN;
 
-//DMA1的通道配置
 //DMA_CHx:DMA通道CHx
 //cpar:外设地址
 //cmar:存储器地址
-//cndtr:数据传输量
+//cndtr:数据传输量 
 void MYDMA_Config(DMA_Channel_TypeDef* DMA_CHx, u32 cpar, u32 cmar, u32 cndtr)
 {
   NVIC_InitTypeDef NVIC_InitStructure; //中断配置结构体
@@ -39,7 +38,7 @@ void MYDMA_Config(DMA_Channel_TypeDef* DMA_CHx, u32 cpar, u32 cmar, u32 cndtr)
   DMA_Cmd(DMA1_Channel5, ENABLE); //使能DMA通道
 }
 
-//重新开启DMA传输
+//重新开启一次DMA传输
 void MYDMA_Enable(DMA_Channel_TypeDef* DMA_CHx)
 { 
   DMA_Cmd(DMA_CHx, DISABLE);//先禁止DMA     

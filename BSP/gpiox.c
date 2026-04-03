@@ -1,7 +1,7 @@
 #include "gpiox.h"
 
 
-// ³õÊ¼»¯GPIO
+// GPIOåˆå§‹åŒ–å‡½æ•° 
 void io_set(gpioled port,u16 pin,GPIOMode_TypeDef mode)
 {
 	GPIO_InitTypeDef  GPIO_InitStructure;
@@ -20,13 +20,13 @@ void io_set(gpioled port,u16 pin,GPIOMode_TypeDef mode)
 	GPIO_Init(port, &GPIO_InitStructure);			
 }
 
-// ÉèÖÃGPIOÒı½ÅµçÆ½Îª¸ß 
+/* è®¾ç½®GPIOå¼•è„šç”µå¹³ä¸ºé«˜ */
 void io_set_bit(gpioled port,u16 pin)
 {
 	GPIO_SetBits(port,pin);
 }
 
-//ÉèÖÃGPIOÒı½ÅµçÆ½ÎªµÍ 
+/* è®¾ç½®GPIOå¼•è„šç”µå¹³ä¸ºä½ */
 void io_reset_bit(gpioled port,u16 pin)
 {
 	GPIO_ResetBits(port,pin);

@@ -2,27 +2,27 @@
 #define __SYS_H	
 #include "stm32f10x.h"
 
-#define SYSTEM_SUPPORT_OS     1 //����ϵͳ�ļ����Ƿ�֧��OS
+#define SYSTEM_SUPPORT_OS     1 //定义系统文件夹是否支持OS
 
-//***********���ܿ���*******//
-#define DEBUG                 0  //���Ժ꿪��
 
-#define ifopen                0  //�̼��������ܿ���
+#define DEBUG                 0  //定义是否打开调试模式，打开后可以在串口打印调试信息
 
-#define SENSOR_DEBUG          0  //���������ݵ��Ժ�
+#define ifopen                0  //定义是否打开文件系统
+
+#define SENSOR_DEBUG          0  //定义是否打开传感器调试信息
 
 #if ifopen
      
 		 #define buff_size      3692
 #endif		 
-//************���ܿ���**********//
 
-//λ������,ʵ��51���Ƶ�GPIO���ƹ���
-//IO�ڲ����궨��
+
+//IO口操作宏定义，使用位带操作实现，效率高，执行速度快
+//IO口操作宏定义,只操作单一IO口!
 #define BITBAND(addr, bitnum) ((addr & 0xF0000000)+0x2000000+((addr &0xFFFFF)<<5)+(bitnum<<2)) 
 #define MEM_ADDR(addr)  *((volatile unsigned long  *)(addr)) 
 #define BIT_ADDR(addr, bitnum)   MEM_ADDR(BITBAND(addr, bitnum)) 
-//IO�ڵ�ַӳ��
+//IO口地址映射
 #define GPIOA_ODR_Addr    (GPIOA_BASE+12) //0x4001080C 
 #define GPIOB_ODR_Addr    (GPIOB_BASE+12) //0x40010C0C 
 #define GPIOC_ODR_Addr    (GPIOC_BASE+12) //0x4001100C 
@@ -39,10 +39,9 @@
 #define GPIOF_IDR_Addr    (GPIOF_BASE+8) //0x40011A08 
 #define GPIOG_IDR_Addr    (GPIOG_BASE+8) //0x40011E08 
 
-//IO�ڲ���,ֻ�Ե�һ��IO��!
-//ȷ��n��ֵС��16!
-#define PAout(n)   BIT_ADDR(GPIOA_ODR_Addr,n)  //���
-#define PAin(n)    BIT_ADDR(GPIOA_IDR_Addr,n)  //����
+//IO口操作函数
+#define PAout(n)   BIT_ADDR(GPIOA_ODR_Addr,n)  //设置PA0的输出状态
+#define PAin(n)    BIT_ADDR(GPIOA_IDR_Addr,n)  //读取PA0的输入状态
 
 #define PBout(n)   BIT_ADDR(GPIOB_ODR_Addr,n)  
 #define PBin(n)    BIT_ADDR(GPIOB_IDR_Addr,n)  
