@@ -4,6 +4,9 @@
 #include "FreeRTOS.h" 
 #include "task.h" 
 
+volatile int overflow = 0;
+volatile float speed = 0.0f;
+
 //**************直流有刷电机驱动*******************
 //u16 arr - 自动重装载值;    u16 psc - 预分频值;
 //u16 ccr - 比较值(占空比);  u16 dtg - 死区时间;

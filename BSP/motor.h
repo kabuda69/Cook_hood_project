@@ -27,3 +27,5 @@ u8 TIM_GetDirection(TIM_TypeDef* TIMx);
 float get_speed(int encode_value,u16 ms);
 
 #endif
+
+

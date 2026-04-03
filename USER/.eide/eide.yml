@@ -49,6 +49,7 @@ virtualFolder:
       files:
         - path: ../BSP/motor.c
         - path: ../BSP/gpiox.c
+        - path: ../BSP/dma.c
       folders: []
     - name: SYSTEM
       files:

@@ -547,6 +547,11 @@
               <FileType>1</FileType>
               <FilePath>..\BSP\gpiox.c</FilePath>
             </File>
+            <File>
+              <FileName>dma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\dma.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
