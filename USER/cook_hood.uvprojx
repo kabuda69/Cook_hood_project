@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F10X_MD,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\USER;..\CORE;..\STM32F10x_FWLib\inc;..\FreeRTOS\include;..\FreeRTOS\portable\RVDS\ARM_CM3;..\SYSTEM\sys;..\SYSTEM\delay;..\SYSTEM\usart;..\BSP</IncludePath>
+              <IncludePath>..\USER;..\CORE;..\STM32F10x_FWLib\inc;..\FreeRTOS\include;..\FreeRTOS\portable\RVDS\ARM_CM3;..\SYSTEM\sys;..\SYSTEM\delay;..\SYSTEM\usart;..\BSP;..\BSP</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -556,6 +556,11 @@
               <FileName>mq2.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\BSP\mq2.c</FilePath>
+            </File>
+            <File>
+              <FileName>dht11.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\dht11.c</FilePath>
             </File>
           </Files>
         </Group>

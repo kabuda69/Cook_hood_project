@@ -51,6 +51,7 @@ virtualFolder:
         - path: ../BSP/gpiox.c
         - path: ../BSP/dma.c
         - path: ../BSP/mq2.c
+        - path: ../BSP/dht11.c
       folders: []
     - name: SYSTEM
       files:
