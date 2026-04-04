@@ -17,9 +17,11 @@ void TIM1_dead_pwm_init(u16 arr,u16 psc,u16 ccr,u16 dtg)
 	TIM_BDTRInitTypeDef TIM_BDTRInitStructure;
 	
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1, ENABLE);
+	
   io_set(GPIOA,GPIO_Pin_8,GPIO_Mode_AF_PP);           // PA8 = TIM1_CH1
 	io_set(GPIOB,GPIO_Pin_13,GPIO_Mode_AF_PP);          // PB13 = TIM1_CH1N
-  io_set(GPIOA,GPIO_Pin_2,GPIO_Mode_Out_PP);          // PA2 = 
+	io_set(GPIOA,GPIO_Pin_2,GPIO_Mode_Out_PP);          // PA2 = SHDN
+	
 	
 	// 初始化TIM1时基单元
   TIM_TimeBaseStructure.TIM_Period = arr;                       
@@ -30,12 +32,12 @@ void TIM1_dead_pwm_init(u16 arr,u16 psc,u16 ccr,u16 dtg)
 	
 	//初始化TIM1 OC1
 	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
-	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
-	TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCPolarity_High;
-    TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
-    TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
-    TIM_OCInitStructure.TIM_Pulse = ccr;                          // 设置初始占空比
-    TIM_OC1Init(TIM1,&TIM_OCInitStructure);
+	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;    //上桥 PA8 → 不反相
+	TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCPolarity_High;   //下桥 PB13 → 芯片内部反相
+  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;  // 比较输出使能
+  TIM_OCInitStructure.TIM_OutputNState = TIM_OutputNState_Enable;	// 互补输出使能（设置错了之前）
+  TIM_OCInitStructure.TIM_Pulse = ccr;                          // 设置初始占空比
+  TIM_OC1Init(TIM1,&TIM_OCInitStructure);
 	TIM_OC1PreloadConfig(TIM1, TIM_OCPreload_Enable); 
 	
 	//配置BDTR寄存器
@@ -70,22 +72,19 @@ void motor_start(void)
 //电机方向控制
 void motor_dir(direction para)
 {
-	taskENTER_CRITICAL();
 	//关闭PWM输出
 	TIM_CCxCmd(TIM1,TIM_Channel_1,TIM_CCx_Disable);
 	TIM_CCxNCmd(TIM1,TIM_Channel_1,TIM_CCxN_Disable);
-	//延时20us，确保PWM输出完全关闭，避免死区时间过短导致的电机损坏
-	delay_us(20);
+	
   // 根据方向参数设置PWM输出
 	if (para == stright)//正转
 	{
-	TIM_CCxNCmd(TIM1,TIM_Channel_1,TIM_CCxN_Enable);
+	     TIM_CCxNCmd(TIM1,TIM_Channel_1,TIM_CCxN_Enable);
 	}
 	else if(para == invert)//反转
 	{
-		TIM_CCxCmd(TIM1,TIM_Channel_1,TIM_CCx_Enable);
+		   TIM_CCxCmd(TIM1,TIM_Channel_1,TIM_CCx_Enable);
 	}
-	taskEXIT_CRITICAL();
 }
 
 //电机初始化
@@ -93,7 +92,8 @@ void motor_init(void)
 {
 	motor_dir(stright);
 	motor_stop();
-	motor_start();                                                                                
+	motor_start();
+    motor_speed(0);	
 }
 
 // 设置电机转速，ccr为比较值，占空比，范围0-1000

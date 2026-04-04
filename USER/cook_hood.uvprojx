@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F10X_MD,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\USER;..\CORE;..\STM32F10x_FWLib\inc;..\FreeRTOS\include;..\FreeRTOS\portable\RVDS\ARM_CM3;..\SYSTEM\sys;..\SYSTEM\delay;..\SYSTEM\usart</IncludePath>
+              <IncludePath>..\USER;..\CORE;..\STM32F10x_FWLib\inc;..\FreeRTOS\include;..\FreeRTOS\portable\RVDS\ARM_CM3;..\SYSTEM\sys;..\SYSTEM\delay;..\SYSTEM\usart;..\BSP</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -552,6 +552,11 @@
               <FileType>1</FileType>
               <FilePath>..\BSP\dma.c</FilePath>
             </File>
+            <File>
+              <FileName>mq2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\mq2.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -626,6 +631,13 @@
         </Group>
         <Group>
           <GroupName>app_task</GroupName>
+          <Files>
+            <File>
+              <FileName>app_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APP_TASK\app_task.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>STM32F10x_FWLib</GroupName>

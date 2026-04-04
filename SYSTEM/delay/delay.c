@@ -22,7 +22,7 @@ void SysTick_Handler(void)
    }
 }
 //初始化延时函数
-void delay_init()
+void delay_init(void)
 {
 	uint32_t  reload;
 	SysTick_CLKSourceConfig(SysTick_CLKSource_HCLK);  

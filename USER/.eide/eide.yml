@@ -50,6 +50,7 @@ virtualFolder:
         - path: ../BSP/motor.c
         - path: ../BSP/gpiox.c
         - path: ../BSP/dma.c
+        - path: ../BSP/mq2.c
       folders: []
     - name: SYSTEM
       files:
@@ -72,7 +73,8 @@ virtualFolder:
         - path: ../FreeRTOS/portable/RVDS/ARM_CM3/port.c
       folders: []
     - name: app_task
-      files: []
+      files:
+        - path: ../APP_TASK/app_task.c
       folders: []
     - name: STM32F10x_FWLib
       files:
@@ -107,6 +109,7 @@ targets:
         - ../SYSTEM/sys
         - ../SYSTEM/delay
         - ../SYSTEM/usart
+        - ../BSP
         - .cmsis/include
         - RTE/_cook_hood
       libList: []
