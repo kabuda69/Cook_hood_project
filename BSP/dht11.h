@@ -11,7 +11,7 @@ extern led_d dht;
 
 void DHT11_Start(led_d *io);
 void DHT11_Read(led_d *io);
-u8 DTH_Read_Byte(led_d *io);
+u8 DHT_Read_Byte(led_d *io);
 u8 DHT_Read_Data(u8 *temp,u8 *humi,gpioled port,u16 pin,led_d *io);
 void chushi(led_d *io);
 u8 readpin(led_d *io);
