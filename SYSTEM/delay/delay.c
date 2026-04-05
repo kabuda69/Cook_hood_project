@@ -8,21 +8,21 @@
 
 #endif
 
-static u8  fac_us=0;  //usÑÓÊ±±¶³ËÊý	
-static u16 fac_ms=0;  //msÑÓÊ±±¶³ËÊý
+static u8  fac_us=0;  //uså»¶æ—¶å€ä¹˜æ•°
+static u16 fac_ms=0;  //mså»¶æ—¶å€ä¹˜æ•°,åœ¨ucosä¸‹,ä»£è¡¨æ¯ä¸ªèŠ‚æ‹çš„msæ•°
 
- extern void xPortSysTickHandler(void);//OSµÄÐÄÌøº¯ÊýÉùÃ÷
+ extern void xPortSysTickHandler(void);//OSçš„systickä¸­æ–­æœåŠ¡å‡½æ•°
  
-//systickÖÐ¶Ï·þÎñº¯Êý,Ê¹ÓÃosÊ±ÓÃµ½
+//systickä¸­æ–­æœåŠ¡å‡½æ•°ï¼Œä½¿ç”¨OSæ—¶ç”¨åˆ°
 void SysTick_Handler(void)
 {
-  if( xTaskIncrementTick() != taskSCHEDULER_NOT_STARTED )
+  if( xTaskIncrementTick() != taskSCHEDULER_NOT_STARTED )//å¦‚æžœOSå·²ç»å¼€å§‹è°ƒåº¦ä»»åŠ¡äº†
    {
          xPortSysTickHandler();    
    }
 }
-//³õÊ¼»¯ÑÓ³Ùº¯Êý
-void delay_init()
+//åˆå§‹åŒ–å»¶æ—¶å‡½æ•°
+void delay_init(void)
 {
 	uint32_t  reload;
 	SysTick_CLKSourceConfig(SysTick_CLKSource_HCLK);  
@@ -37,27 +37,27 @@ void delay_init()
 	SysTick->CTRL|=SysTick_CTRL_ENABLE_Msk;         	 
 }	
 
-//ÑÓÊ±nus
+//usçº§å»¶æ—¶
 void delay_us(u32 nus)
 {		
 	u32 ticks;
 	u32 told,tnow,tcnt=0;
 	u32 reload=SysTick->LOAD;					    	 
-	ticks=nus*fac_us; 						
-	told=SysTick->VAL;        				
+	ticks=nus*fac_us; 						//ï¿½ï¿½Òªï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½
+	told=SysTick->VAL;        		//ï¿½Õ½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
 	while(1)
 	{
 		tnow=SysTick->VAL;	
 		if(tnow!=told)
 		{	    
-			if(tnow<told)tcnt+=told-tnow;	
-			else tcnt+=reload-tnow+told;	    
+			if(tnow<told)tcnt+=told-tnow;	 //SysTickï¿½ï¿½24Î»ï¿½Ý¼ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+			else tcnt+=reload-tnow+told;	   
 			told=tnow;
-			if(tcnt>=ticks)break;			
+			if(tcnt>=ticks)break;			//ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë³ï¿½
 		}  
 	};										    
 } 
-//ÑÓÊ±nms
+//msçº§å»¶æ—¶
 void delay_ms(u32 nms)
 {	
 	if(xTaskGetSchedulerState()!=taskSCHEDULER_NOT_STARTED)
@@ -70,11 +70,12 @@ void delay_ms(u32 nms)
 	}
 	delay_us((u32)(nms*1000));				
 }
-//ÑÓÊ±nms,²»»áÒýÆðÈÎÎñµ÷¶È
+//å»¶æ—¶nms
 void delay_xms(u32 nms)
 {
 	u32 i;
-	for(i=0;i<nms;i++) delay_us(1000);
+	for(i=0;i<nms;i++) 
+	delay_us(1000);
 }
 
 

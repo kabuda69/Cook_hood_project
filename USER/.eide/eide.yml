@@ -46,12 +46,18 @@ virtualFolder:
         - path: ../STM32F10x_FWLib/src/stm32f10x_wwdg.c
       folders: []
     - name: BSP
-      files: []
+      files:
+        - path: ../BSP/motor.c
+        - path: ../BSP/gpiox.c
+        - path: ../BSP/dma.c
+        - path: ../BSP/mq2.c
+        - path: ../BSP/dht11.c
       folders: []
     - name: SYSTEM
       files:
         - path: ../SYSTEM/sys/sys.c
         - path: ../SYSTEM/delay/delay.c
+        - path: ../SYSTEM/usart/usart.c
       folders: []
     - name: FreeRTOS_Core
       files:
@@ -68,7 +74,8 @@ virtualFolder:
         - path: ../FreeRTOS/portable/RVDS/ARM_CM3/port.c
       folders: []
     - name: app_task
-      files: []
+      files:
+        - path: ../APP_TASK/app_task.c
       folders: []
     - name: STM32F10x_FWLib
       files:
@@ -103,6 +110,7 @@ targets:
         - ../SYSTEM/sys
         - ../SYSTEM/delay
         - ../SYSTEM/usart
+        - ../BSP
         - .cmsis/include
         - RTE/_cook_hood
       libList: []

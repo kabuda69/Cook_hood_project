@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F10X_MD,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\USER;..\CORE;..\STM32F10x_FWLib\inc;..\FreeRTOS\include;..\FreeRTOS\portable\RVDS\ARM_CM3;..\SYSTEM\sys;..\SYSTEM\delay;..\SYSTEM\usart</IncludePath>
+              <IncludePath>..\USER;..\CORE;..\STM32F10x_FWLib\inc;..\FreeRTOS\include;..\FreeRTOS\portable\RVDS\ARM_CM3;..\SYSTEM\sys;..\SYSTEM\delay;..\SYSTEM\usart;..\BSP;..\BSP</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -536,6 +536,33 @@
         </Group>
         <Group>
           <GroupName>BSP</GroupName>
+          <Files>
+            <File>
+              <FileName>motor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\motor.c</FilePath>
+            </File>
+            <File>
+              <FileName>gpiox.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\gpiox.c</FilePath>
+            </File>
+            <File>
+              <FileName>dma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\dma.c</FilePath>
+            </File>
+            <File>
+              <FileName>mq2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\mq2.c</FilePath>
+            </File>
+            <File>
+              <FileName>dht11.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\dht11.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>SYSTEM</GroupName>
@@ -549,6 +576,11 @@
               <FileName>delay.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\SYSTEM\delay\delay.c</FilePath>
+            </File>
+            <File>
+              <FileName>usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\SYSTEM\usart\usart.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -604,6 +636,13 @@
         </Group>
         <Group>
           <GroupName>app_task</GroupName>
+          <Files>
+            <File>
+              <FileName>app_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APP_TASK\app_task.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>STM32F10x_FWLib</GroupName>
