@@ -562,6 +562,11 @@
               <FileType>1</FileType>
               <FilePath>..\BSP\dht11.c</FilePath>
             </File>
+            <File>
+              <FileName>SPI.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\SPI.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
