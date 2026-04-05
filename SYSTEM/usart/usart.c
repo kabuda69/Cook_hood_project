@@ -57,9 +57,9 @@ void uart_init(u32 bound)
 	GPIO_Init(GPIOA, &GPIO_InitStructure);
 	//Usart1 NVIC 配置
 	/*NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=3; //��ռ���ȼ�3
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;		  //�����ȼ�3
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;		    	//IRQͨ��ʹ��
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=3; //抢占优先级3
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;		  //响应优先级3
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;		    	//IRQ通道使能
 	NVIC_Init(&NVIC_InitStructure);	  */                      
 	//USART 初始化设置
 	USART_InitStructure.USART_BaudRate = bound;                                    //波特率
@@ -72,7 +72,7 @@ void uart_init(u32 bound)
 	USART_Init(USART1, &USART_InitStructure);
 	//用DMA1通道5传输数据到USART1
 	//USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);
-	USART_DMACmd(USART1, USART_DMAReq_Rx, ENABLE);	
+	//USART_DMACmd(USART1, USART_DMAReq_Rx, ENABLE);	
 	USART_Cmd(USART1, ENABLE);                   	  
 }
 

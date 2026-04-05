@@ -18,9 +18,9 @@ void DHT11_Start(led_d *io)
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_Init(io->port, &GPIO_InitStructure);
     GPIO_ResetBits(io->port, io->pin); // 拉低引脚
-    delay_ms(20); // 等待至少18ms   
+    delay_xms(20); // 等待至少18ms   
     GPIO_SetBits(io->port, io->pin); // 拉高引脚
-    delay_ms(30); // 等待20-40us
+    delay_us(30); // 等待20-40us
     GPIO_ResetBits(io->port, io->pin); // 拉低引脚
 }
 // DHT11 读取函数，配置引脚为输入模式，并读取引脚状态

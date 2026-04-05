@@ -111,6 +111,7 @@ targets:
         - ../SYSTEM/delay
         - ../SYSTEM/usart
         - ../BSP
+        - ../APP_TASK
         - .cmsis/include
         - RTE/_cook_hood
       libList: []

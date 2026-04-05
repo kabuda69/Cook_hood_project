@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F10X_MD,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\USER;..\CORE;..\STM32F10x_FWLib\inc;..\FreeRTOS\include;..\FreeRTOS\portable\RVDS\ARM_CM3;..\SYSTEM\sys;..\SYSTEM\delay;..\SYSTEM\usart;..\BSP;..\BSP</IncludePath>
+              <IncludePath>..\USER;..\CORE;..\STM32F10x_FWLib\inc;..\FreeRTOS\include;..\FreeRTOS\portable\RVDS\ARM_CM3;..\SYSTEM\sys;..\SYSTEM\delay;..\SYSTEM\usart;..\BSP;..\APP_TASK</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
