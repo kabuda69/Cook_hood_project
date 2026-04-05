@@ -9,7 +9,7 @@
 #include "semphr.h"
 #include "dma.h"
 
-
+void Create_DHT11_Task(void);
 
 
 void System_Init(void);

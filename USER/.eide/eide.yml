@@ -52,6 +52,8 @@ virtualFolder:
         - path: ../BSP/dma.c
         - path: ../BSP/mq2.c
         - path: ../BSP/dht11.c
+        - path: ../BSP/SPI.c
+        - path: ../BSP/lcd.c
       folders: []
     - name: SYSTEM
       files:
@@ -111,6 +113,7 @@ targets:
         - ../SYSTEM/delay
         - ../SYSTEM/usart
         - ../BSP
+        - ../APP_TASK
         - .cmsis/include
         - RTE/_cook_hood
       libList: []

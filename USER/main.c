@@ -2,79 +2,40 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
-u8 dma_buffer[100];
-// 电机任务句柄
-TaskHandle_t motor_task_handle = NULL;
-
-// 电机任务函数（真正运行电机的地方）
-void motor_task(void *pvParameters)
-{
-    u16 i;
-
-    // 初始化电机硬件
-    TIM1_dead_pwm_init(999, 71, 0, 100);
-    motor_init();
-    motor_start();
-    motor_dir(stright);
-
-    while (1)
-    {
-        // 加速
-        for (i = 0; i <= 500; i += 50)
-        {
-            motor_speed(i);
-            GPIO_SetBits(GPIOC, GPIO_Pin_13);
-            vTaskDelay(200);
-            GPIO_ResetBits(GPIOC, GPIO_Pin_13);
-            vTaskDelay(200);
-        }
-
-        // 减速
-        for (i = 500; i >= 0; i -= 50)
-        {
-            motor_speed(i);
-            GPIO_SetBits(GPIOC, GPIO_Pin_13);
-            vTaskDelay(200);
-            GPIO_ResetBits(GPIOC, GPIO_Pin_13);
-            vTaskDelay(200);
-        }
-
-        vTaskDelay(1000);
-    }
-}
-
+#include "usart.h"       // 串口初始化头文件
+#include "app_task.h"   // RTOS任务头文件
 
 int main(void)
 {
-   // 1. 系统时钟初始化
-    SystemInit();
+	  SystemInit();
+    // 1. 延时初始化（必须第一个）
     delay_init();
 
-    // 2. LED 初始化
-    GPIO_InitTypeDef GPIO_InitStructure;
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-    GPIO_Init(GPIOC, &GPIO_InitStructure);
-    GPIO_ResetBits(GPIOC, GPIO_Pin_13);
+    // 2. 串口初始化
+    uart_init(115200);
+    printf("系统初始化成功\r\n");
 
-    // ==================== FreeRTOS 任务创建 ====================
-    // 创建电机任务
-    xTaskCreate(
-        motor_task,       // 任务函数
-        "motor_task",     // 任务名
-        512,              // 堆栈大小
-        NULL,             // 参数
-        2,                // 优先级
-        &motor_task_handle // 任务句柄
-    );
+    // 3. 创建任务
+    Create_DHT11_Task();
 
-    // 启动调度器 —— 真正开始跑系统
+    // 4. 启动RTOS
     vTaskStartScheduler();
 
-    // 调度器启动失败才会跑到这里
-    while (1)
+    while(1)
     {
+        
     }
+}
+
+// 【可选】FreeRTOS空闲钩子函数（若需要）
+void vApplicationIdleHook(void)
+{
+    // 空闲任务执行的内容（可留空）
+}
+
+// 【可选】栈溢出钩子函数（调试用）
+void vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName)
+{
+    printf("任务栈溢出：%s\r\n", pcTaskName);
+    while(1);
 }
