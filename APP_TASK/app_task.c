@@ -24,7 +24,7 @@ static void DHT11_Task_Func(void *pvParameters)
     u8 temp = 0, humi = 0;
     u8 ret = 0;
 
-    printf("DHT11 任务已启动\r\n");
+    printf("DHT11 GOOD\r\n");
 
     while(1)
     {
@@ -33,11 +33,11 @@ static void DHT11_Task_Func(void *pvParameters)
 
         if(ret == 1)  // 你的驱动：成功返回1
         {
-            printf("温度：%d℃  湿度：%d%%RH\r\n", temp, humi);
+            printf("TEMP：%d℃  HUMI：%d%%RH\r\n", temp, humi);
         }
         else
         {
-            printf("DHT11 读取失败\r\n");
+            printf("DHT11 bad\r\n");
         }
 
         // RTOS 延时，不影响时序

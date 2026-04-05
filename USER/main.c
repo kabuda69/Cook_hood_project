@@ -36,6 +36,7 @@ void vApplicationIdleHook(void)
 // 【可选】栈溢出钩子函数（调试用）
 void vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName)
 {
-    printf("任务栈溢出：%s\r\n", pcTaskName);
+	 printf("RenWuYiChu:%s\r\n", pcTaskName);
     while(1);
 }
+
