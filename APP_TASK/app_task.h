@@ -9,11 +9,19 @@
 #include "semphr.h"
 #include "dma.h"
 
-void Create_DHT11_Task(void);
+typedef struct {
+    uint8_t temperature;
+    uint8_t humidity;
+} SystemState_t;
 
+
+extern SystemState_t g_systemState;
 
 void System_Init(void);
-
+void StartTask_Create(void);
+void StartTask(void *pvParameters);
+void SensorTask(void *pvParameters);
+void UIDisplayTask(void *pvParameters);
 
 
 #endif

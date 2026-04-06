@@ -145,6 +145,7 @@ void Draw_Triangel(u16 x0,u16 y0,u16 x1,u16 y1,u16 x2,u16 y2)
 	LCD_DrawLine(x2,y2,x0,y0);
 }
 
+//交换两个变量的值
 static void _swap(u16 *a, u16 *b)
 {
 	u16 tmp;
@@ -298,7 +299,7 @@ void LCD_ShowString(u16 x,u16 y,u8 size,u8 *p,u8 mode)
 } 
 
 
-
+//计算m的n次幂
 u32 mypow(u8 m,u8 n)
 {
 	u32 result=1;	 

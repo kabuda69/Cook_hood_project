@@ -43,15 +43,15 @@ extern u16  BACK_COLOR; //背景颜色.默认为白色
 //直接IO操作直接操作寄存器来操作IO，这样刷屏速率可以达到28帧每秒！ 
 
 //GPIO置位操作（高）：
-#define	LCD_CS_SET  GPIO_TYPE->BSRR= (1 << 9)    //PB9置1  	
-#define	LCD_RS_SET	GPIO_TYPE->BSRR= (1 << 7)   //PB7置1  	  
-#define	LCD_RST_SET	GPIO_TYPE->BSRR= (1 << 8)   //PB8置1	  
+#define	LCD_CS_SET  GPIO_TYPE->BSHR=1<<LCD_CS    //PB9置1  	
+#define	LCD_RS_SET	GPIO_TYPE->BSHR=1<<LCD_RS    //PB7置1  	  
+#define	LCD_RST_SET	GPIO_TYPE->BSHR=1<<LCD_RST   //PB8置1	  
 
 //STM32F103 就把 “置 1” 和 “清 0” 合并在 BSRR 一个寄存器里！
 //GPIO置位操作（低）：						    
-#define	LCD_CS_CLR  GPIO_TYPE->BSRR= (1 << (9 + 16))     //PB9清0  	
-#define	LCD_RS_CLR	GPIO_TYPE->BSRR= (1 << (7 + 16))     //PB7清0   	 
-#define	LCD_RST_CLR	GPIO_TYPE->BSRR= (1 << (8 + 16))     //PB8清0  
+#define	LCD_CS_CLR  GPIO_TYPE->BCR=1<<LCD_CS        //PB9清0  	
+#define	LCD_RS_CLR	GPIO_TYPE->BCR=1<<LCD_RS       //PB7清0   	 
+#define	LCD_RST_CLR	GPIO_TYPE->BCR=1<<LCD_RST      //PB8清0  
 
 //画笔颜色
 #define WHITE       0xFFFF

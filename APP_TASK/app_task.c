@@ -8,54 +8,99 @@
 #include <string.h>
 #include "mq2.h"
 #include "dht11.h"
+#include "GUI.h"
+#include "spi.h"
+#include "lcd.h"
 
 
+SystemState_t g_systemState;
+SemaphoreHandle_t g_dataMutex = NULL;
 
-// 任务优先级、栈大小、任务句柄定义
-#define DHT11_TASK_PRIO    2               // 任务优先级（根据系统调整）
-#define DHT11_TASK_STACK   256             // 任务栈大小（字节/字，依RTOS而定）
-TaskHandle_t Dht11Task_Handle = NULL;      // 任务句柄
+static TaskHandle_t xStartTaskHandle = NULL;
+static TaskHandle_t xSensorTaskHandle = NULL;
+static TaskHandle_t xUIDisplayTaskHandle = NULL;
 
-extern led_d dht;// DHT11 的led灯外部定义
-
-// DHT11测试任务函数（无限循环读取+串口打印）
-static void DHT11_Task_Func(void *pvParameters)
+// 系统初始化
+void System_Init(void)
 {
-    u8 temp = 0, humi = 0;
-    u8 ret = 0;
+    g_systemState.temperature = 0;
+    g_systemState.humidity = 0;
+    g_dataMutex = xSemaphoreCreateMutex();
+}
 
-    printf("DHT11 GOOD\r\n");
+// 开始任务创建
+void StartTask_Create(void)
+{
+    xTaskCreate(StartTask, "StartTask", 512, NULL, 1, &xStartTaskHandle);
+}
 
+// 开始任务
+void StartTask(void *pvParameters)
+{
+    taskENTER_CRITICAL();
+
+    // 传感器任务
+    xTaskCreate(SensorTask, "SensorTask", 512, NULL, 2, &xSensorTaskHandle);
+    
+    // LCD显示任务
+    xTaskCreate(UIDisplayTask, "UIDisplayTask", 512, NULL, 3, &xUIDisplayTaskHandle);
+
+    taskEXIT_CRITICAL();
+    vTaskDelete(xStartTaskHandle);
+}
+
+// 传感器采集任务
+void SensorTask(void *pvParameters)
+{
+    u8 temp, humi;
     while(1)
     {
-        // ✅ 完全调用你自己的 DHT_Read_Data 函数，参数完全匹配
-        ret = DHT_Read_Data(&temp, &humi, GPIOC, GPIO_Pin_14, &dht);
-
-        if(ret == 1)  // 你的驱动：成功返回1
+        if(DHT_Read_Data(&temp, &humi, GPIOC, GPIO_Pin_14, &dht))
         {
-            printf("TEMP：%d℃  HUMI：%d%%RH\r\n", temp, humi);
+            if(xSemaphoreTake(g_dataMutex, portMAX_DELAY) == pdTRUE)
+            {
+                g_systemState.temperature = temp;
+                g_systemState.humidity = humi;
+                xSemaphoreGive(g_dataMutex);
+            }
         }
-        else
-        {
-            printf("DHT11 bad\r\n");
-        }
-
-        // RTOS 延时，不影响时序
-        vTaskDelay(2000);
+        vTaskDelay(pdMS_TO_TICKS(500));
     }
 }
 
-void Create_DHT11_Task(void)
+// LCD显示任务
+void UIDisplayTask(void *pvParameters)
 {
-    xTaskCreate(
-        DHT11_Task_Func,
-        "DHT11_Task",
-        DHT11_TASK_STACK,
-        NULL,
-        DHT11_TASK_PRIO,
-        &Dht11Task_Handle
-    );
+	 char dispBuf[32];
+    
+    /* 清屏 */
+    LCD_Clear(WHITE); 
+    
+    while (1)
+    {
+        // 读取温湿度（线程安全）
+        uint8_t temp, humi;
+        if(xSemaphoreTake(g_dataMutex, portMAX_DELAY) == pdTRUE)
+        {
+            temp = g_systemState.temperature;
+            humi = g_systemState.humidity;
+            xSemaphoreGive(g_dataMutex);
+        }
+
+        // ====================== 只显示温湿度 ======================
+        sprintf(dispBuf, "Temp: %d C", temp);
+        Show_Str(0, 20, BLUE, WHITE, (u8*)dispBuf, 16, 0);
+
+        sprintf(dispBuf, "Humi: %d %%", humi);
+        Show_Str(0, 50, BLUE, WHITE, (u8*)dispBuf, 16, 0);
+
+        // 200ms 刷新
+       delay_ms(200);
+    }
 }
+	
+	
+	
 
 
 
