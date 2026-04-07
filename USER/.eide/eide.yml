@@ -56,6 +56,7 @@ virtualFolder:
         - path: ../BSP/lcd.c
         - path: ../BSP/GUI.c
         - path: ../BSP/beep.c
+        - path: ../BSP/key.c
       folders: []
     - name: SYSTEM
       files:

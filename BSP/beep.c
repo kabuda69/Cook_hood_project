@@ -46,10 +46,7 @@ void Beep_on(led_d *io)
 {
 	GPIO_SetBits(io->port,io->pin);
 }
-void Beep_on(led_d *io)
-{
-	GPIO_SetBits(io->port,io->pin);
-}
+
 
 //BEEP鸣叫
 void Buzzer_Beep(u16 duration_ms,led_d *io)

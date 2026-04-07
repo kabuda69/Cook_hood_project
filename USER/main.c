@@ -5,7 +5,8 @@
 #include "delay.h"
 #include "lcd.h"
 #include "dht11.h"     
-#include "app_task.h"   // RTOS任务头文件
+#include "app_task.h"  
+#include "SPI.h"
 
 int main(void)
 {
