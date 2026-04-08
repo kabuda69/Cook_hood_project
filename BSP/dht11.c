@@ -5,8 +5,7 @@
 u8  BUF[5]={0x00,0x00,0x00,0x00,0x00};    //存储读取的温湿度信息
 u32 sum=0;         						  //校验值
 
-// DHT11 的led灯外部定义
-led_d dht = {GPIOC, GPIO_Pin_14};
+
 // DHT11 启动函数，通过拉低引脚至少18ms来启动DHT11传感器
 void DHT11_Start(led_d *io)
 {

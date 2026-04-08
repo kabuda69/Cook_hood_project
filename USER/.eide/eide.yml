@@ -58,6 +58,7 @@ virtualFolder:
         - path: ../BSP/beep.c
         - path: ../BSP/key.c
         - path: ../BSP/wind_speed.c
+        - path: ../BSP/pid.c
       folders: []
     - name: SYSTEM
       files:

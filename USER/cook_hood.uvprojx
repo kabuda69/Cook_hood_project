@@ -592,6 +592,11 @@
               <FileType>1</FileType>
               <FilePath>..\BSP\wind_speed.c</FilePath>
             </File>
+            <File>
+              <FileName>pid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\pid.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
