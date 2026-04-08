@@ -587,6 +587,11 @@
               <FileType>1</FileType>
               <FilePath>..\BSP\key.c</FilePath>
             </File>
+            <File>
+              <FileName>wind_speed.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\wind_speed.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
