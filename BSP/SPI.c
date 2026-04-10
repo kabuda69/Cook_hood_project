@@ -17,9 +17,9 @@
 //SPI写读一个字节
 u8 SPI_WriteByte(SPI_TypeDef* SPIx,u8 Byte)
 {
-    while((SPIx->SR&SPI_I2S_FLAG_TXE)==RESET);//等待发送区空
-    SPIx->DR=Byte;//写入数据
-    while((SPIx->SR&SPI_I2S_FLAG_RXNE)==RESET);//等待接收完成
+    while((SPIx->STATR&SPI_I2S_FLAG_TXE)==RESET);//等待发送区空
+    SPIx->DATAR=Byte;//写入数据
+    while((SPIx->STATR&SPI_I2S_FLAG_RXNE)==RESET);//等待接收完成
     return SPIx->DR;//返回收到的数据
 }
 
@@ -27,17 +27,17 @@ u8 SPI_WriteByte(SPI_TypeDef* SPIx,u8 Byte)
 void SPI_SetSpeed(SPI_TypeDef* SPIx,u8 SpeedSet)
 {
     // 清空波特率(3,4,5位)
-    SPIx->CR1&=0XFFC7;
+    SPIx->CTLR1&=0XFFC7;
 	if(SpeedSet==1)//高速
 	{
-		SPIx->CR1|=SPI_BaudRatePrescaler_2;//Fsck=Fpclk/2
+		SPIx->CTLR1|=SPI_BaudRatePrescaler_2;//Fsck=Fpclk/2
 	}
 	else//低速
 	{
-		SPIx->CR1|=SPI_BaudRatePrescaler_32; //Fsck=Fpclk/32
+		SPIx->CTLR1|=SPI_BaudRatePrescaler_32; //Fsck=Fpclk/32
 	}
     // 打开SPI(第6位=1)
-	SPIx->CR1|=1<<6; 
+	SPIx->CTLR1|=1<<6; 
 }
 
 void SPI1_Init(void)
