@@ -60,6 +60,7 @@ virtualFolder:
         - path: ../BSP/wind_speed.c
         - path: ../BSP/pid.c
         - path: ../BSP/stmflash.c
+        - path: ../BSP/iap.c
       folders: []
     - name: SYSTEM
       files:
