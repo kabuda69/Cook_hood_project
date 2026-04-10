@@ -9,13 +9,46 @@
 #include "semphr.h"
 #include "dma.h"
 
+//工作模式定义
+typedef enum {
+    MODE_STANDBY = 0,       /* 待机模式 */
+    MODE_MANUAL,            /* 手动模式 */
+    MODE_AUTO,              /* 自动模式 */
+    MODE_ANTI_BACKFLOW      /* 防回流模式 */
+} WorkMode_t;
+//手动档位定义
+typedef enum {
+    SPEED_LOW = 0,          /* 低档 */
+    SPEED_HIGH              /* 高档 */
+} SpeedLevel_t;
+
+//系统状态定义
 typedef struct {
-    uint8_t temperature;
-    uint8_t humidity;
-    float gasConcentration;
+    WorkMode_t currentMode;         /* 当前工作模式 */
+    SpeedLevel_t speedLevel;        /* 当前档位 */
+    u8 motorRunning;                /* 电机运行状态,0表示停止，1表示运行 */
+    
+    u8 temperature;                 /* 温度值 */
+    u8 humidity;                    /* 湿度值 */
+    float gasConcentration;         /* 气体浓度值 */
+    
+    float windSpeedPWM;             /* 风速PWM值(%) */
+    float actualRPM;                /* 实际转速 */
+    u16 targetRPM;                  /* 目标转速 */
+    
+    u8 cookingEventActive;          /* Cooking Event激活标志 */
+    
+    u8 antiBackflowActive;          /* 防回流激活标志 */
+    float gasThreshold;             /* 当前气体浓度阈值 */
+    
+    u32 autoModeCounter;            /* 自动模式启动阶段计时器(ms) */
+    u32 cookingEventCounter;        /* Cooking Event计时器(ms) */
 } SystemState_t;
 
 
+
+
+、
 extern SystemState_t g_systemState;
 //时序参数定义（ms）
 #define AUTO_MODE_STARTUP_TIME      60000   /* 自动模式启动等待时间：60秒 */
