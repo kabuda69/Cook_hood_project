@@ -4,8 +4,8 @@
 #include "sys.h"
 #include "gpiox.h"
 
-extern volatile float speed;      /* Êµ¼Ê×ªËÙ */
-extern volatile int overflow;    /* ±àÂëÆ÷Òç³ö¼ÆÊıÆ÷ */
+extern volatile float speed;                /* å®é™…è½¬é€Ÿ */
+extern volatile int overflow;               /* ç¼–ç å™¨æº¢å‡ºè®¡æ•°å™¨ */
 
 typedef enum
 {

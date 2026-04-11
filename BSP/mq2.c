@@ -41,6 +41,8 @@ void MQ2_Init(void)
  while(ADC_GetCalibrationStatus(ADC1)); // 等待校准完成
 
 }
+
+
 // 获取MQ2传感器的ADC值，返回一个16位无符号整数，范围0-4095
 u16 MQ2_GetAdcValue(void)
 {
